@@ -7,11 +7,17 @@
     "start": "npm run dev -- --host",
     "dev": "vite",
     "build": "vite build",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
     "preview": "vite preview"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/svelte": "^3.2.2",
+    "jsdom": "^20.0.3",
     "svelte": "^3.54.0",
-    "vite": "^4.0.0"
+    "vite": "^4.0.0",
+    "vitest": "^0.26.3"
   }
 }
