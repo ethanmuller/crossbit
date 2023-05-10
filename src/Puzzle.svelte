@@ -43,7 +43,7 @@
   <div class="bits">
     {#each aPuzzle.rowClusters as row, i}
       {#each aPuzzle.colClusters as col, j}
-        <button data-x={j} data-y={i} on:click={ handleClick }>{j},{i}</button>
+        <button data-x={j} data-y={i} on:click={ handleClick }></button>
       {/each}
     {/each}
   </div>
@@ -55,6 +55,7 @@
     grid-template-areas:
       "x col"
       "row bits";
+    --tile-size: 36px;
   }
 
   .margin {
@@ -66,16 +67,29 @@
   }
 
   .label {
+    font-size: 12px;
     display: block;
     width: 24px;
     height: 24px;
     text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .margin--row .label {
+      width: 12px;
+      height: calc(var(--tile-size) + 1px);
+  }
+
+  .margin--col .label {
+      line-height: 0;
+      width: var(--tile-size);
   }
 
   .margin--col {
     grid-area: col;
     flex-direction: row;
-    background: lightgray;
 
     display: flex;
   }
@@ -87,33 +101,55 @@
   }
 
   .margin--row {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .margin--row .labels {
+      flex: 1;
+      height: var(--tile-size);
+      padding-right: 0.4rem;
+  }
+
+  .margin--row {
     grid-area: row;
     flex-direction: column;
-    width: 120px;
-    background: gray;
     text-align: right;
     align-items: flex-end;
   }
 
   .bits {
     grid-area: bits;
-    background: #eee;
-    width: 216px;
-    height: 216px;
+    width: calc(var(--tile-size) * 9 + 1px * 9);
+    height: calc(var(--tile-size) * 9 + 1px * 9);
 
     display: flex;
     flex-wrap: wrap;
+    gap: 1px;
   }
 
   .bits button {
     border: none;
     border-radius: 0;
-    width: 24px;
-    height: 24px;
+    width: var(--tile-size);
+    height: var(--tile-size);
     line-height: 1;
     padding: 0;
     margin: 0;
     display: block;
-    font-size: 0.5em;
+    font-size: 0.75em;
+    box-sizing: border-box;
+    background: var(--tile-b);
+  }
+
+  .bits button:nth-child(3n),
+  .bits button:nth-child(3n-1),
+  .bits button:nth-child(3n-2) {
+    background: var(--tile-b);
+  }
+
+  .bits button:nth-child(3n),
+  .bits button:nth-child(3n-1),
+  .bits button:nth-child(3n-2) {
   }
 </style>

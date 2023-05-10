@@ -45,7 +45,7 @@ export default class Puzzle {
     // for each row
     for (let i = 0; i < this.height; i++) {
       let row = this.art[i]
-      row = row.split(' ')
+      row = row.split(/[ .]/)
       row = row.filter(r => r !== '')
       row = row.map(i => i.length)
       this.rowClusters.push(row)

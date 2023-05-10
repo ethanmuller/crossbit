@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/svelte'
 import Puzzle from './Puzzle.js';
-import { heart, square, rectangle, problem } from './art.js';
+import { heart, square, rectangle, problem, smiley } from './art.js';
 
 describe('Puzzle', () => {
   test('square should be 5x5', () => {
@@ -38,6 +38,32 @@ describe('Puzzle', () => {
       [7],
       [6],
       [4],
+    ])
+  })
+
+  test('should allow periods for whitespace', () => {
+    const aPuzzle = new Puzzle(smiley)
+    expect(aPuzzle.rowClusters).toEqual([
+      [],
+      [],
+      [],
+      [1, 1],
+      [],
+      [1, 1],
+      [5],
+      [],
+      [],
+    ])
+    expect(aPuzzle.colClusters).toEqual([
+      [],
+      [1],
+      [1, 1],
+      [1],
+      [1],
+      [1],
+      [1, 1],
+      [1],
+      [],
     ])
   })
 
