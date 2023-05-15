@@ -13,9 +13,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
-  --tile-a: #333;
-  --tile-b: #303030;
 }
 
 @media (prefers-color-scheme: light) {

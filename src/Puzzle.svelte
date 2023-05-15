@@ -3,23 +3,71 @@
 
   export let art
 
-  const aPuzzle = new Puzzle(art)
+  const solution = new Puzzle(art)
 
-  function handleClick(event) {
-    const { x, y } = event.target.dataset
-    const bit = aPuzzle.get(x,y)
+  const userPuzzleState = new Array(solution.height);
+  let winning = false;
 
-    if (bit) {
-      this.style.backgroundColor = 'green'
-    } else {
-      this.style.backgroundColor = 'red'
-    }
+  for (let i = 0; i < solution.height; i++) {
+      userPuzzleState[i] = new Array(solution.width);
   }
+
+  logState()
+
+  function logState() {
+      let resultString = "";
+
+      for (let y = 0; y < userPuzzleState.length; y++) {
+          let row = "";
+
+          for (let x = 0; x <userPuzzleState[0].length ; x++) {
+              let col = userPuzzleState[y][x] === 1 ? 1 : 0
+              row += col
+
+              if (x === userPuzzleState[0].length - 1) {
+                  resultString += '\n'
+              }
+          }
+
+          resultString += row
+      }
+      console.log(resultString)
+  }
+
+  function areYaWinningSon() {
+    for (let j = 0; j < solution.height; j++) {
+        for (let i = 0; i < solution.height; i++) {
+            const a = userPuzzleState[j][i] === 1 ? 1 : 0;
+            if (a !== solution.get(i,j)) {
+                return false
+            }
+        }
+    }
+    return true
+  }
+
+function handleClick(event) {
+    const { x, y } = event.target.dataset
+
+    if (userPuzzleState[y][x] != 1) {
+        this.style.backgroundColor = 'black'
+        userPuzzleState[y][x] = 1
+    } else {
+        this.style.backgroundColor = ''
+        userPuzzleState[y][x] = 0
+    }
+
+  winning = areYaWinningSon()
+  logState()
+}
+
+
 </script>
 
 <div class="puzzle">
+  {winning}
   <div class="margin margin--col">
-    {#each aPuzzle.colClusters as colLabels}
+    {#each solution.colClusters as colLabels}
       <div class="labels">
         {#each colLabels as label}
           <div class="label">{ label }</div>
@@ -30,7 +78,7 @@
     {/each}
   </div>
   <div class="margin margin--row">
-    {#each aPuzzle.rowClusters as rowLabels}
+    {#each solution.rowClusters as rowLabels}
       <div class="labels">
         {#each rowLabels as label}
           <div class="label">{ label }</div>
@@ -41,8 +89,8 @@
     {/each}
   </div>
   <div class="bits">
-    {#each aPuzzle.rowClusters as row, i}
-      {#each aPuzzle.colClusters as col, j}
+    {#each solution.rowClusters as row, i}
+      {#each solution.colClusters as col, j}
         <button data-x={j} data-y={i} on:click={ handleClick }></button>
       {/each}
     {/each}
@@ -139,17 +187,6 @@
     display: block;
     font-size: 0.75em;
     box-sizing: border-box;
-    background: var(--tile-b);
-  }
-
-  .bits button:nth-child(3n),
-  .bits button:nth-child(3n-1),
-  .bits button:nth-child(3n-2) {
-    background: var(--tile-b);
-  }
-
-  .bits button:nth-child(3n),
-  .bits button:nth-child(3n-1),
-  .bits button:nth-child(3n-2) {
+    background: var(--tile-a);
   }
 </style>
