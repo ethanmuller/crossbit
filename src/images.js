@@ -114,6 +114,7 @@ image: `
 },
 {
 name: "Worm",
+difficulty: "impossible",
 image: `
 ......#..
 .....#.#.

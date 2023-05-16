@@ -50,7 +50,7 @@ function handleClick(event) {
     const { x, y } = event.target.dataset
 
     if (userPuzzleState[y][x] != 1) {
-        this.style.backgroundColor = 'black'
+        this.style.backgroundColor = 'var(--tile-1)'
         userPuzzleState[y][x] = 1
     } else {
         this.style.backgroundColor = ''
@@ -65,7 +65,9 @@ function handleClick(event) {
 </script>
 
 <div class="puzzle">
-  {winning}
+  {#if winning}
+    u got it :)
+  {/if}
   <div class="margin margin--col">
     {#each solution.colClusters as colLabels}
       <div class="labels">
@@ -187,6 +189,6 @@ function handleClick(event) {
     display: block;
     font-size: 0.75em;
     box-sizing: border-box;
-    background: var(--tile-a);
+    background: var(--tile-empty);
   }
 </style>
